@@ -578,7 +578,7 @@ public class AddressBook {
      * @return feedback display message for the operation result
      */
     private static String executeSortAddressBook() {
-        Collections.sort(ALL_PERSONS, Comparator.comparing(person -> person.get(PersonProperty.NAME)));
+        Collections.sort(ALL_PERSONS, Comparator.comparing(person -> person.get(PersonProperty.NAME).toUpperCase()));
         savePersonsToFile(getAllPersonsInAddressBook(), storageFilePath);
         return MESSAGE_SORTED;
     }
