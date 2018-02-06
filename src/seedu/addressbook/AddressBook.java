@@ -809,11 +809,11 @@ public class AddressBook {
      * @return true if the given person was found and deleted in the model
      */
     private static boolean deletePersonFromAddressBook(HashMap<PersonProperty, String> exactPerson) {
-        final boolean changed = ALL_PERSONS.remove(exactPerson);
-        if (changed) {
+        final boolean hasChange = ALL_PERSONS.remove(exactPerson);
+        if (hasChange) {
             savePersonsToFile(getAllPersonsInAddressBook(), storageFilePath);
         }
-        return changed;
+        return hasChange;
     }
 
     /**
@@ -1149,7 +1149,7 @@ public class AddressBook {
      * @param dob to be validated
      */
     private static boolean isPersonDobValid(String dob) {
-        String[] dateProperties = dob.split("-");
+        String[] dateProperties = getDateProperties(dob);
         if (dateProperties.length == 3) {
             int year = Integer.parseInt(dateProperties[DOB_YEAR_INDEX]);
             int month = Integer.parseInt(dateProperties[DOB_MONTH_INDEX]);
@@ -1164,6 +1164,11 @@ public class AddressBook {
         }
 
         return false;
+    }
+
+    /** Returns DOB properties as an array*/
+    private static String[] getDateProperties(String dob) {
+        return dob.split("-");
     }
 
 
